@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -22,6 +24,8 @@ namespace MicrocreditCalculator
     public partial class MainWindow : Window
     {
         public int LoanTerm;
+        public string forSave;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -132,48 +136,67 @@ namespace MicrocreditCalculator
                 return;
             }
 
+            for (int i = 0; i < LoanTerm; i++)
+            {
+                forSave += $"{bets[i]}; {persents[i]}; {sums[i]}\n";
+            }
+        }
 
-            //UIElement element = daysStack.Children[0];
-            //TextBox myBox = (TextBox)element;
+        private void SaveBid_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text file (*.txt)|*.txt";
 
-            //int counter = 0;
-            //double previusVal = 0;
-            //foreach (TextBox box1 in daysStack.Children)
-            //{
-            //    if (counter == 0)
-            //    {
-            //        string temp = Convert.ToString(Convert.ToDouble(box1.Text) * 100);
-            //        persentsStack.Children.Add(new TextBox { Text = temp });
-            //        previusVal = Convert.ToDouble(temp);
-            //        counter++;
-            //    }
-
-            //    if ((counter != 0) && (counter < LoanTerm))
-            //    {
-            //        string temp = Convert.ToString(previusVal + Convert.ToDouble(box1.Text) * 100);
-            //        persentsStack.Children.Add(new TextBox { Text = temp });
-            //        previusVal = Convert.ToDouble(temp);
-            //        counter++;
-            //    }
-
-
-            //double previusVal = 0;
-
-            //if (counter == 0)
-            //{
-            //    previusVal = Convert.ToDouble(myBox.Text) * 100;
-            //    persentsStack.Children.Add(new TextBox { Text = Convert.ToString(previusVal) });
-            //    counter++;
-            //}
-
-            //if ((counter < LoanTerm-1) && (counter != 0))
-            //{
-            //    string temp = Convert.ToString(previusVal + Convert.ToDouble(box1.Text) * 100);
-            //    previusVal = previusVal + Convert.ToDouble(box1.Text) * 100;
-            //    persentsStack.Children.Add(new TextBox { Text = temp });
-            //    counter++;
-            //}
-            // }
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string FilePath = saveFileDialog.FileName;
+                using (StreamWriter sw = new StreamWriter(FilePath, false, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(forSave);
+                }
+            }
         }
     }
 }
+
+//UIElement element = daysStack.Children[0];
+//TextBox myBox = (TextBox)element;
+
+//int counter = 0;
+//double previusVal = 0;
+//foreach (TextBox box1 in daysStack.Children)
+//{
+//    if (counter == 0)
+//    {
+//        string temp = Convert.ToString(Convert.ToDouble(box1.Text) * 100);
+//        persentsStack.Children.Add(new TextBox { Text = temp });
+//        previusVal = Convert.ToDouble(temp);
+//        counter++;
+//    }
+
+//    if ((counter != 0) && (counter < LoanTerm))
+//    {
+//        string temp = Convert.ToString(previusVal + Convert.ToDouble(box1.Text) * 100);
+//        persentsStack.Children.Add(new TextBox { Text = temp });
+//        previusVal = Convert.ToDouble(temp);
+//        counter++;
+//    }
+
+
+//double previusVal = 0;
+
+//if (counter == 0)
+//{
+//    previusVal = Convert.ToDouble(myBox.Text) * 100;
+//    persentsStack.Children.Add(new TextBox { Text = Convert.ToString(previusVal) });
+//    counter++;
+//}
+
+//if ((counter < LoanTerm-1) && (counter != 0))
+//{
+//    string temp = Convert.ToString(previusVal + Convert.ToDouble(box1.Text) * 100);
+//    previusVal = previusVal + Convert.ToDouble(box1.Text) * 100;
+//    persentsStack.Children.Add(new TextBox { Text = temp });
+//    counter++;
+//}
+// }

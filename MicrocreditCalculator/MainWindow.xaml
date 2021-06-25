@@ -36,6 +36,7 @@
         </ScrollViewer>
         <UniformGrid HorizontalAlignment="Center" Height="20" Margin="196,385,214,0" VerticalAlignment="Top" Width="380" Columns="3">
             <Button x:Name="CalculateBid" Content="Вычислить ставку" Click="CalculateBid_Click"/>
+            <Button x:Name="SaveBid" Content="Сохранить" Click="SaveBid_Click"/>
         </UniformGrid>
     </Grid>
 </Window>
