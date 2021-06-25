@@ -69,6 +69,9 @@ namespace MicrocreditCalculator
                 sumStack.Children.Add(new TextBox { Text = Convert.ToString(sums[i]) });
             }
 
+            SummaViplati.Text = Convert.ToString(sums[LoanTerm-1]);
+            SummaProcentov.Text = Convert.ToString(persents[LoanTerm - 1]);
+            Stavka.Text = Convert.ToString(Convert.ToDouble(persents[LoanTerm - 1]) / Convert.ToDouble(SummaZaima.Text) / Convert.ToDouble(LoanTerm) * 100) + "%";
 
 
 

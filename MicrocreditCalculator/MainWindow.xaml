@@ -18,8 +18,8 @@
             <GroupBox Header="Срок займа" Width="200" Height="40" FontSize="10">
                 <TextBox x:Name="SrokZaima" TextWrapping="Wrap" FontSize="12" Height="20"/>
             </GroupBox>
-            <GroupBox x:Name="SummaProcentov" Header="Сумма процентов" Width="200" Height="40" FontSize="10">
-                <TextBox TextWrapping="Wrap" FontSize="12" Height="20"/>
+            <GroupBox Header="Сумма процентов" Width="200" Height="40" FontSize="10">
+                <TextBox x:Name="SummaProcentov" TextWrapping="Wrap" FontSize="12" Height="20"/>
             </GroupBox>
             <Button x:Name="Raschet_btn" Content="Рассчитать" Height="20" Width="150" Click="Raschet_btn_Click"/>
             <GroupBox Header="Эффективная ставка" Width="200" Height="40" FontSize="10">
