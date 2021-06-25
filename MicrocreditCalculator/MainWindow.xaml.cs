@@ -62,6 +62,11 @@ namespace MicrocreditCalculator
                 MessageBox.Show("Сумма займа не может быть больше 500.000");
                 return;
             }
+            if (Convert.ToDouble(SrokZaima.Text) > 365)
+            {
+                MessageBox.Show("Срок займа не может быть больше 365");
+                return;
+            }
 
             for (int i = 0; i < LoanTerm; i++)
             {
@@ -82,20 +87,28 @@ namespace MicrocreditCalculator
             int counter = 0;
             foreach (TextBox box in daysStack.Children)
             {
-                if (box.Text == "")
+                try
                 {
-                    MessageBox.Show("Заполните все поля");
-                    return;
+                    if (box.Text == "")
+                    {
+                        MessageBox.Show("Заполните все поля");
+                        return;
+                    }
+                    if (Convert.ToDouble(box.Text) > 1)
+                    {
+                        MessageBox.Show("Принимаются значения не более 1%\nПример: 0,9");
+                        return;
+                    }
+                    else
+                    {
+                        bets[counter] = Convert.ToDouble(box.Text);
+                        counter++;
+                    }
                 }
-                if (Convert.ToDouble(box.Text) > 1)
+                catch
                 {
-                    MessageBox.Show("Принимаются значения не более 1%\nПример: 0,9");
+                    MessageBox.Show("Введите корректные значения\nПример: Пример: 0,9");
                     return;
-                }
-                else
-                {
-                    bets[counter] = Convert.ToDouble(box.Text);
-                    counter++;
                 }
             }
 
@@ -144,17 +157,7 @@ namespace MicrocreditCalculator
 
         private void SaveBid_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text file (*.txt)|*.txt";
-
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                string FilePath = saveFileDialog.FileName;
-                using (StreamWriter sw = new StreamWriter(FilePath, false, System.Text.Encoding.Default))
-                {
-                    sw.WriteLine(forSave);
-                }
-            }
+            Saving.SavingMetod(forSave);
         }
     }
 }
