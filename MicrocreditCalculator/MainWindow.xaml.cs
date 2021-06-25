@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,16 +25,31 @@ namespace MicrocreditCalculator
         public MainWindow()
         {
             InitializeComponent();
+            this.SummaZaima.PreviewTextInput += new TextCompositionEventHandler(textBox_PreviewTextInput);
+            this.SrokZaima.PreviewTextInput += new TextCompositionEventHandler(textBox_PreviewTextInput);
+        }
+
+        void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
         }
 
         private void Raschet_btn_Click(object sender, RoutedEventArgs e)
         {
             StackPanel daysStack = DaysStack;
 
-            LoanTerm = Convert.ToInt32(SrokZaima.Text);
+            try
+            {
+                LoanTerm = Convert.ToInt32(SrokZaima.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Введите сумму займа и кол-во дней");
+            }
+
             for (int i = 0; i < LoanTerm; i++)
             {
-                daysStack.Children.Add(new TextBox { Name = "field_1" });
+                daysStack.Children.Add(new TextBox { Name = "StavkaFields" });
             }
         }
 
@@ -59,7 +75,7 @@ namespace MicrocreditCalculator
 
             for (int i = 1; i < LoanTerm; i++)
             {
-                persents[i] = Convert.ToInt32((bets[i] * 100) + persents[i-1]);
+                persents[i] = Convert.ToInt32((bets[i] * 100) + persents[i - 1]);
                 persentsStack.Children.Add(new TextBox { Text = Convert.ToString(persents[i]) });
             }
 
@@ -69,7 +85,7 @@ namespace MicrocreditCalculator
                 sumStack.Children.Add(new TextBox { Text = Convert.ToString(sums[i]) });
             }
 
-            SummaViplati.Text = Convert.ToString(sums[LoanTerm-1]);
+            SummaViplati.Text = Convert.ToString(sums[LoanTerm - 1]);
             SummaProcentov.Text = Convert.ToString(persents[LoanTerm - 1]);
             Stavka.Text = Convert.ToString(Convert.ToDouble(persents[LoanTerm - 1]) / Convert.ToDouble(SummaZaima.Text) / Convert.ToDouble(LoanTerm) * 100) + "%";
 

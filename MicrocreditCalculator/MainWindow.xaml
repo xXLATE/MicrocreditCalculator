@@ -13,17 +13,17 @@
                 <TextBox x:Name="SummaZaima" TextWrapping="Wrap" FontSize="12" Height="20"/>
             </GroupBox>
             <GroupBox Header="Общая сумма выплаты" Width="200" Height="40" FontSize="10">
-                <TextBox x:Name="SummaViplati" TextWrapping="Wrap" FontSize="12" Height="20"/>
+                <TextBox x:Name="SummaViplati" TextWrapping="Wrap" FontSize="12" Height="20" IsReadOnly="True" Cursor="Arrow"/>
             </GroupBox>
             <GroupBox Header="Срок займа" Width="200" Height="40" FontSize="10">
                 <TextBox x:Name="SrokZaima" TextWrapping="Wrap" FontSize="12" Height="20"/>
             </GroupBox>
             <GroupBox Header="Сумма процентов" Width="200" Height="40" FontSize="10">
-                <TextBox x:Name="SummaProcentov" TextWrapping="Wrap" FontSize="12" Height="20"/>
+                <TextBox x:Name="SummaProcentov" TextWrapping="Wrap" FontSize="12" Height="20" IsReadOnly="True" Cursor="Arrow"/>
             </GroupBox>
             <Button x:Name="Raschet_btn" Content="Рассчитать" Height="20" Width="150" Click="Raschet_btn_Click"/>
             <GroupBox Header="Эффективная ставка" Width="200" Height="40" FontSize="10">
-                <TextBox x:Name="Stavka" TextWrapping="Wrap" FontSize="12" Height="20"/>
+                <TextBox x:Name="Stavka" TextWrapping="Wrap" FontSize="12" Height="20" IsReadOnly="True" Cursor="Arrow"/>
             </GroupBox>
         </UniformGrid>
 
