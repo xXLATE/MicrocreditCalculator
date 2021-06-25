@@ -28,13 +28,91 @@ namespace MicrocreditCalculator
 
         private void Raschet_btn_Click(object sender, RoutedEventArgs e)
         {
-            StackPanel stackPanel = DaysStack;
+            StackPanel daysStack = DaysStack;
 
             LoanTerm = Convert.ToInt32(SrokZaima.Text);
             for (int i = 0; i < LoanTerm; i++)
             {
-                stackPanel.Children.Add(new TextBox { Name = "field_1" });
+                daysStack.Children.Add(new TextBox { Name = "field_1" });
             }
+        }
+
+        private void CalculateBid_Click(object sender, RoutedEventArgs e)
+        {
+            double[] bets = new double[LoanTerm];
+            int[] persents = new int[LoanTerm];
+            int[] sums = new int[LoanTerm];
+
+            StackPanel daysStack = DaysStack;
+            StackPanel persentsStack = PersentsStack;
+            StackPanel sumStack = SumStack;
+
+            int counter = 0;
+            foreach (TextBox box1 in daysStack.Children)
+            {
+                bets[counter] = Convert.ToDouble(box1.Text);
+                counter++;
+            }
+
+            persents[0] = Convert.ToInt32(bets[0] * 100);
+            persentsStack.Children.Add(new TextBox { Text = Convert.ToString(persents[0]) });
+
+            for (int i = 1; i < LoanTerm; i++)
+            {
+                persents[i] = Convert.ToInt32((bets[i] * 100) + persents[i-1]);
+                persentsStack.Children.Add(new TextBox { Text = Convert.ToString(persents[i]) });
+            }
+
+            for (int i = 0; i < LoanTerm; i++)
+            {
+                sums[i] = persents[i] + Convert.ToInt32(SummaZaima.Text);
+                sumStack.Children.Add(new TextBox { Text = Convert.ToString(sums[i]) });
+            }
+
+
+
+
+            //UIElement element = daysStack.Children[0];
+            //TextBox myBox = (TextBox)element;
+
+            //int counter = 0;
+            //double previusVal = 0;
+            //foreach (TextBox box1 in daysStack.Children)
+            //{
+            //    if (counter == 0)
+            //    {
+            //        string temp = Convert.ToString(Convert.ToDouble(box1.Text) * 100);
+            //        persentsStack.Children.Add(new TextBox { Text = temp });
+            //        previusVal = Convert.ToDouble(temp);
+            //        counter++;
+            //    }
+
+            //    if ((counter != 0) && (counter < LoanTerm))
+            //    {
+            //        string temp = Convert.ToString(previusVal + Convert.ToDouble(box1.Text) * 100);
+            //        persentsStack.Children.Add(new TextBox { Text = temp });
+            //        previusVal = Convert.ToDouble(temp);
+            //        counter++;
+            //    }
+
+
+            //double previusVal = 0;
+
+            //if (counter == 0)
+            //{
+            //    previusVal = Convert.ToDouble(myBox.Text) * 100;
+            //    persentsStack.Children.Add(new TextBox { Text = Convert.ToString(previusVal) });
+            //    counter++;
+            //}
+
+            //if ((counter < LoanTerm-1) && (counter != 0))
+            //{
+            //    string temp = Convert.ToString(previusVal + Convert.ToDouble(box1.Text) * 100);
+            //    previusVal = previusVal + Convert.ToDouble(box1.Text) * 100;
+            //    persentsStack.Children.Add(new TextBox { Text = temp });
+            //    counter++;
+            //}
+            // }
         }
     }
 }
