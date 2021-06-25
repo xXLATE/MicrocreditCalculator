@@ -80,21 +80,21 @@ namespace MicrocreditCalculator
             StackPanel sumStack = SumStack;
 
             int counter = 0;
-            foreach (TextBox box1 in daysStack.Children)
+            foreach (TextBox box in daysStack.Children)
             {
-                if (box1.Text == "")
+                if (box.Text == "")
                 {
                     MessageBox.Show("Заполните все поля");
                     return;
                 }
-                if (Convert.ToDouble(box1.Text) > 1)
+                if (Convert.ToDouble(box.Text) > 1)
                 {
                     MessageBox.Show("Принимаются значения не более 1%\nПример: 0,9");
                     return;
                 }
                 else
                 {
-                    bets[counter] = Convert.ToDouble(box1.Text);
+                    bets[counter] = Convert.ToDouble(box.Text);
                     counter++;
                 }
             }
